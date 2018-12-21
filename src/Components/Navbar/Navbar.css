@@ -1,0 +1,19 @@
+nav {
+  width: 90%;
+}
+
+#CollapseContent {
+  border: 1px dashed black;
+}
+
+nav button:hover {
+  color: green !important;
+  outline-color: green !important;
+}
+
+nav input:focus,
+nav input[type=search] {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
