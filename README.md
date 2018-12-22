@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/vfwjz94.png" width="40" height="40">
+  <img src="https://i.imgur.com/vfwjz94.png" width="140" height="50">
 </p>
 
 > A News Aggregator Application
