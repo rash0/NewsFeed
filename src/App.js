@@ -20,7 +20,6 @@ class App extends Component {
     navSortBy: 'Sort by',
     navPublishTime: 'Publish time',
     childinputKeyword: ''
-
   }
 
 
@@ -114,7 +113,6 @@ class App extends Component {
   pageLoading = () => {
     if(this.state.articleisLoading===true){
       return <Load />
-      // return <h1>FAILL</h1>
     }else{
       return null
     }
@@ -157,7 +155,7 @@ class App extends Component {
                 inputKeyword={this.childinputKeyword}
                 submitFilter={() => this.articleRequest()}
               />
-              <PostComponent res={this.state.articleResponse} />
+            <PostComponent res={this.state.articleResponse} />
               {this.noResult()}
             </main>
             <aside className="col-12 col-lg-3 col-xl-3">
