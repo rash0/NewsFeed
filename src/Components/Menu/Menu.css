@@ -1,0 +1,79 @@
+.Menu {
+  zoom: 0.8;
+}
+
+.FABMenu {
+  position: fixed;
+  z-index: 100;
+  top: 97%;
+  right: 100%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 50px;
+  height: 200px;
+}
+
+.FABMenu input {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  z-index: 20;
+  border-radius: 80px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.hamburger {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  background-color: #E84F3E;
+  border-radius: 100%;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  cursor: pointer;
+}
+
+.dots span {
+  position: absolute;
+  top: 45%;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background: #fff;
+  z-index: 20;
+  transition: all 0.3s ease-in-out;
+}
+
+.first {
+  margin-left: 1.1em;
+}
+
+.second {
+  margin-left: 2.65em;
+}
+
+.third {
+  margin-left: 4.2em;
+}
+
+.FABMenu input:checked~.hamburger .dots .first {
+  top: 20px;
+  height: 60px;
+  transform-origin: top;
+  transform: rotate(-45deg);
+  transition: all 0.3s ease-in-out;
+}
+
+.FABMenu input:checked~.hamburger .dots .third {
+  top: 20px;
+  height: 60px;
+  transform-origin: top;
+  transform: rotate(45deg);
+  transition: all 0.3s ease-in-out;
+}
