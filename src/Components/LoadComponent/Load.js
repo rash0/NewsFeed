@@ -2,7 +2,7 @@ import React from 'react';
 import './Load.css'
 
 const Load = () => (
-	<div className="modal on">
+	<div className="modal">
 		<div className="loader" />
 	</div>
 )

@@ -18,7 +18,7 @@ const LiveComponent = (props) => (
     <div>
       <div className="row pl-3 pr-2">
         <div className="col-12">
-          <p><a className="text-white" href={props.url}>{splitAuthorfromTitle(props.title)[0]}</a></p>
+          <p><a className="text-white" style={{fontSize: '15px'}} href={props.url}>{splitAuthorfromTitle(props.title)[0]}</a></p>
         </div>
         <div className="col-6 my-0">
           <p className="text-muted">{splitAuthorfromTitle(props.title)[1]}</p>
