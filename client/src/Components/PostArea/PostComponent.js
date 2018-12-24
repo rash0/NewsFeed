@@ -40,7 +40,7 @@ function PostComponent(props) {
   const cardList = value.map((props, index) =>
       <div className={classItt(index)} key={index}>
         <a className="no-deco" href={props.url}>
-          <div className="card card-image text-white" style={{backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.79) 0%, rgba(255,255,255,0.18) 100%, rgba(255,255,255,0.17) 100%), url(${props.urlToImage})`,backgroundOrigin: 'border-box', backgroundSize: (classItt(index).slice(0,5)==="col-6")?'150% 100%':'120% 130%', backgroundPosition:(classItt(index).slice(0,5)==="col-6")?'50% 95%':'0' }}>
+          <div className="card card-image text-white" style={{backgroundImage: ` linear-gradient(to right, rgba(10,10,10,1) 0%, rgba(10,10,10,1) 2%, rgba(6,6,6,0.62) 41%, rgba(0,0,0,0) 100%), url(${props.urlToImage})`,backgroundOrigin: 'border-box', backgroundSize: (classItt(index).slice(0,5)==="col-6")?'150% 100%':'120% 130%', backgroundPosition:(classItt(index).slice(0,5)==="col-6")?'50% 95%':'0' }}>
           <div className="card-body">
             <p className="font-italic text-capitalize"><small>{(props.author===null || props.author.indexOf("http") !==-1)? props.source.name : props.author.toLowerCase()}</small></p>
             <h6 className="card-title">{props.title.slice(0, 71)}</h6>
