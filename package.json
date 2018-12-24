@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/rash0/NewsFeed#readme",
   "dependencies": {
+    "compression": "^1.7.3",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "newsapi": "^2.4.0"
