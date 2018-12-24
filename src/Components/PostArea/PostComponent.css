@@ -1,7 +1,13 @@
 /* Post Area */
 @media (min-width: 992px) {
   .Postbody-size {
-    width: 97%;
+    width: 93%;
+  }
+}
+
+@media (min-width: 1199.98px) {
+  .Postbody-size {
+    width: 100%;
   }
 }
 
