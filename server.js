@@ -47,4 +47,4 @@ app.get('*', function (req, res) {
     res.sendFile(__dirname + '/client/build/index.html')
 });
 
-app.listen(port))
+app.listen(port)
