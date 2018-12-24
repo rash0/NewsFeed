@@ -6,10 +6,10 @@ function Navbar(props) {
 
   return (
     <div className="mb-3">
-      <nav className="navbar navbar-light mb-3">
-        <img className="mt-2" src={require('./set.svg')} width="30" height="30" data-toggle="collapse" data-target="#CollapseContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" alt="filter-Menu" />
+      <nav className="navbar navbar-light mb-2">
+        <img className="" src={require('./set.svg')} width="20" height="20" data-toggle="collapse" data-target="#CollapseContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" alt="filter-Menu" />
 
-        <img className="navbar-brand mx-auto" src={require('./N-Logo.png')} width="200" alt="Logo" />
+        <img className="navbar-brand mx-auto" src={require('./N-Logo.png')} width="140" alt="Logo" />
 
         <div className="collapse navbar-collapse mt-3 pt-3" id="CollapseContent">
           <div className="container">
@@ -56,7 +56,9 @@ function Navbar(props) {
       <div className="d-flex justify-content-between">
         <h6 className="pl-3"><small>{moment().format('dddd, MMMM DD, YYYY')}</small></h6>
       </div>
-      <hr />
+      <div className="container-fluid">
+        <hr />
+      </div>
   </div>
 
   )

@@ -6,7 +6,7 @@ function classItt(index) {
 
   switch (index) {
     case 0:
-      return "col-12 col-md-9 col-xl-6 col-lg-6 pb-3"
+      return "col-12 col-md-9 col-xl-6 col-lg-5 pb-3"
     case 1:
       return "col-6 col-md-3 col-xl-3 col-lg-3"
     case 2:
@@ -18,7 +18,7 @@ function classItt(index) {
     case 5:
       return "col-12 col-md-9 col-xl-6 col-lg-6 order-xl-1 pb-3"
     case 6:
-      return "col-12 col-md-9 col-xl-6 col-lg-6 order-xl-1 pb-3"
+      return "col-12 col-md-9 col-xl-6 col-lg-5 order-xl-1 pb-3"
     case 7:
       return "col-6 col-md-3 col-xl-3 col-lg-3"
     case 8:
@@ -28,7 +28,7 @@ function classItt(index) {
     case 10:
       return "col-6 col-md-3 col-xl-3 col-lg-3 order-md-1 pb-3"
     case 11:
-      return "col-12 col-md-9 col-xl-6 col-lg-6 pb-3"
+      return "col-12 col-md-9 col-xl-6 col-lg-5 pb-3"
     default:
       return null
   }

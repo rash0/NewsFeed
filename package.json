@@ -1,31 +1,25 @@
 {
   "name": "newsfeed",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "A News Aggregator Application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rash0/NewsFeed.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rash0/NewsFeed/issues"
+  },
+  "homepage": "https://github.com/rash0/NewsFeed#readme",
   "dependencies": {
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
-    "moment": "^2.22.2",
-    "newsapi": "^2.4.0",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1"
-  },
-  "proxy": "http://localhost:5000",
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "devDependencies": {}
+    "newsapi": "^2.4.0"
+  }
 }

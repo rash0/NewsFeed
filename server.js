@@ -1,12 +1,14 @@
 require('dotenv').config()
 const express = require('express');
 const app = express();
-// var path = require('path');
+var path = require('path');
 const NewsAPI = require('newsapi');
-// var compression = require('compression')
+var compression = require('compression')
 const port = process.env.PORT || 5000;
-
 const newsapi = new NewsAPI(process.env.API_KEY);
+
+app.use(compression())
+app.use(express.static(path.resolve(__dirname, 'client/build')));
 
 
 app.get('/lr', function(req, res){
@@ -41,4 +43,8 @@ app.get('/ar/:key/:page/:from/:to/:sort', function(req, res){
 
 })
 
-app.listen(port, () =>console.log(`Listening on port ${port}`))
+app.get('*', function (req, res) {
+    res.sendFile(__dirname + '/client/build/index.html')
+});
+
+app.listen(port))
