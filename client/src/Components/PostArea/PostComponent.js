@@ -6,29 +6,29 @@ function classItt(index) {
 
   switch (index) {
     case 0:
-      return "col-12 col-md-9 col-xl-6 col-lg-5 pb-3"
+      return "col-12 col-md-9 col-xl-6 col-lg-8 pb-3"
     case 1:
-      return "col-6 col-md-3 col-xl-3 col-lg-3"
+      return "col-6 col-md-3 col-xl-3 col-lg-4 order-4"
     case 2:
-      return "col-6 col-md-3 col-xl-3 col-lg-3 pb-3"
+      return "col-6 col-md-3 col-xl-3 col-lg-4 pb-3"
     case 3:
-      return "col-6 col-md-3 col-xl-3 col-lg-3 order-md-1"
+      return "col-6 col-md-3 col-xl-3 col-lg-4 order-6 order-sm-1 mb-3"
     case 4:
-      return "col-6 col-md-3 col-xl-3 col-lg-3 order-md-1 pb-3"
+      return "col-6 col-md-3 col-xl-3 col-lg-4 pb-3"
     case 5:
-      return "col-12 col-md-9 col-xl-6 col-lg-6 order-xl-1 pb-3"
+      return "col-12 col-md-9 col-xl-6 col-lg-8 pb-3 order-6"
     case 6:
-      return "col-12 col-md-9 col-xl-6 col-lg-5 order-xl-1 pb-3"
+      return "col-12 col-md-9 col-xl-6 col-lg-8 pb-3"
     case 7:
-      return "col-6 col-md-3 col-xl-3 col-lg-3"
+      return "col-6 col-md-3 col-xl-3 col-lg-8"
     case 8:
-      return "col-6 col-md-3 col-xl-3 col-lg-3 pb-3"
+      return "col-6 col-md-3 col-xl-3 col-lg-4 pb-3"
     case 9:
-      return "col-6 col-md-3 col-xl-3 col-lg-3 order-md-1"
+      return "col-6 col-md-3 col-xl-3 col-lg-8"
     case 10:
-      return "col-6 col-md-3 col-xl-3 col-lg-3 order-md-1 pb-3"
+      return "col-6 col-md-3 col-xl-3 col-lg-4 pb-3"
     case 11:
-      return "col-12 col-md-9 col-xl-6 col-lg-5 pb-3"
+      return "col-12 col-md-9 col-xl-6 col-lg-8 pb-3"
     default:
       return null
   }
@@ -40,7 +40,7 @@ function PostComponent(props) {
   const cardList = value.map((props, index) =>
       <div className={classItt(index)} key={index}>
         <a className="no-deco" href={props.url}>
-          <div className="card card-image text-white" style={{backgroundImage: ` linear-gradient(to right, rgba(10,10,10,1) 0%, rgba(10,10,10,1) 2%, rgba(6,6,6,0.62) 41%, rgba(0,0,0,0) 100%), url(${props.urlToImage})`,backgroundOrigin: 'border-box', backgroundSize: (classItt(index).slice(0,5)==="col-6")?'150% 100%':'120% 130%', backgroundPosition:(classItt(index).slice(0,5)==="col-6")?'50% 95%':'0' }}>
+          <div className="card card-image text-white" style={{backgroundImage: `linear-gradient(to right, rgba(10,10,10,1) 0%, rgba(10,10,10,1) 2%, rgba(6,6,6,0.62) 41%, rgba(0,0,0,0) 100%), url(${props.urlToImage})`,backgroundOrigin: 'border-box', backgroundSize: (classItt(index).slice(0,5)==="col-6")?'150% 100%':'120% 130%', backgroundPosition:(classItt(index).slice(0,5)==="col-6")?'50% 95%':'0' }}>
           <div className="card-body">
             <p className="font-italic text-capitalize"><small>{(props.author===null || props.author.indexOf("http") !==-1)? props.source.name : props.author.toLowerCase()}</small></p>
             <h6 className="card-title">{props.title.slice(0, 71)}</h6>
