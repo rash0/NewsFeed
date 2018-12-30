@@ -55,6 +55,15 @@ function Navbar(props) {
       </nav>
       <div className="d-flex justify-content-between">
         <h6 className="pl-3"><small>{moment().format('dddd, MMMM DD, YYYY')}</small></h6>
+        <div className="weather row" style={{border: '1px solid red', width: '12rem'}}>
+          <img src={props.weather.logo} alt="w.now"/>
+          <div className="col-6" style={{border: '1px solid red'}}>
+            <h6>{Math.floor(props.weather.tempNow)}°c</h6>
+            <span>{props.weather.minTemp}°c</span>
+            <span className="text-muted ml-2">{props.weather.maxTemp}°c</span>
+          </div>
+          <span>{props.weather.city}, {props.weather.country}</span>
+        </div>
       </div>
       <div className="container-fluid">
         <hr />

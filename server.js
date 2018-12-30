@@ -4,11 +4,12 @@ const app = express();
 var path = require('path');
 const NewsAPI = require('newsapi');
 var compression = require('compression')
+const request = require('request');
 const port = process.env.PORT || 5000;
 const newsapi = new NewsAPI(process.env.API_KEY);
 
 app.use(compression())
-app.use(express.static(path.resolve(__dirname, 'client/build')));
+// app.use(express.static(path.resolve(__dirname, 'client/build')));
 
 app.get('/w', function(req, res, err){
   request(`https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.IPGEO_KEY}`,function (error, response, body){
@@ -17,7 +18,7 @@ app.get('/w', function(req, res, err){
     request(`https://api.openweathermap.org/data/2.5/weather?q=${ip.city},${ip.country_name}&APPID=${process.env.WETH_KEY}&units=metric`,function (error, response, body){
       console.log('Second request error:', error);
       var weather = JSON.parse(body)
-      res.send(JSON.stringify({minTemp: weather.main.temp_min, now: weather.main.temp, maxTemp: weather.main.temp_max}))
+      res.send(JSON.stringify({minTemp: weather.main.temp_min, tempNow: weather.main.temp, maxTemp: weather.main.temp_max, logo: `http://openweathermap.org/img/w/${weather.weather[0].icon}.png`, country:ip.country_name, city: ip.city}))
     })
   })
 })
@@ -54,8 +55,8 @@ app.get('/ar/:key/:page/:from/:to/:sort', function(req, res){
 
 })
 
-app.get('*', function (req, res) {
-    res.sendFile(__dirname + '/client/build/index.html')
-});
+// app.get('*', function (req, res) {
+//     res.sendFile(__dirname + '/client/build/index.html')
+// });
 
 app.listen(port)

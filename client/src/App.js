@@ -19,13 +19,15 @@ class App extends Component {
     liveisLoading: true,
     navSortBy: 'Sort by',
     navPublishTime: 'Publish time',
-    childinputKeyword: ''
+    childinputKeyword: '',
+    weatherInfo:[]
   }
 
 
   componentDidMount() {
     this.liveColRequest()
     this.articleRequest()
+    this.weatherRequest()
     if(window.innerWidth < 991){
       this.setState({
         livemenu:false
@@ -41,6 +43,19 @@ class App extends Component {
 
   componentWillUnmount() {
      window.removeEventListener("resize", this.checkWidth);
+  }
+
+  async weatherRequest() {
+    try{
+    const response = await fetch('/w');
+    const res = await response.json();
+    await this.setState({
+        weatherInfo: res,
+    })
+
+    }catch (error) {
+    console.log('weatherRequest error is' + error );
+    }
   }
 
   async articleRequest() {
@@ -153,6 +168,7 @@ class App extends Component {
                 sortSelection={this.childsortSelection}
                 publishSelection={this.childpublishSelection}
                 inputKeyword={this.childinputKeyword}
+                weather={this.state.weatherInfo}
                 submitFilter={() => this.articleRequest()}
               />
             <PostComponent res={this.state.articleResponse} />
