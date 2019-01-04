@@ -2,55 +2,26 @@ import React from 'react'
 import './PostComponent.css'
 import moment from 'moment'
 
-function classItt(index) {
-
-  switch (index) {
-    case 0:
-      return "col-12 col-md-9 col-xl-6 col-lg-8 pb-3"
-    case 1:
-      return "col-6 col-md-3 col-xl-3 col-lg-4 order-4"
-    case 2:
-      return "col-6 col-md-3 col-xl-3 col-lg-4 pb-3"
-    case 3:
-      return "col-6 col-md-3 col-xl-3 col-lg-4 order-6 order-sm-1 mb-3"
-    case 4:
-      return "col-6 col-md-3 col-xl-3 col-lg-4 pb-3"
-    case 5:
-      return "col-12 col-md-9 col-xl-6 col-lg-8 pb-3 order-6"
-    case 6:
-      return "col-12 col-md-9 col-xl-6 col-lg-8 pb-3"
-    case 7:
-      return "col-6 col-md-3 col-xl-3 col-lg-8"
-    case 8:
-      return "col-6 col-md-3 col-xl-3 col-lg-4 pb-3"
-    case 9:
-      return "col-6 col-md-3 col-xl-3 col-lg-8"
-    case 10:
-      return "col-6 col-md-3 col-xl-3 col-lg-4 pb-3"
-    case 11:
-      return "col-12 col-md-9 col-xl-6 col-lg-8 pb-3"
-    default:
-      return null
-  }
-}
-
 function PostComponent(props) {
   const value = props.res
 
   const cardList = value.map((props, index) =>
-      <div className={classItt(index)} key={index}>
-        <a className="no-deco" href={props.url}>
-          <div className="card card-image text-white" style={{backgroundImage: `linear-gradient(to right, rgba(10,10,10,1) 0%, rgba(10,10,10,1) 2%, rgba(6,6,6,0.62) 41%, rgba(0,0,0,0) 100%), url(${props.urlToImage})`,backgroundOrigin: 'border-box', backgroundSize: (classItt(index).slice(0,5)==="col-6")?'150% 100%':'120% 130%', backgroundPosition:(classItt(index).slice(0,5)==="col-6")?'50% 95%':'0' }}>
+        <div className="card" key={index} style={{width: '18rem'}}>
+          <img src={props.urlToImage} className="card-img-top" alt="..." />
           <div className="card-body">
-            <p className="font-italic text-capitalize"><small>{(props.author===null || props.author.indexOf("http") !==-1)? props.source.name : props.author.toLowerCase()}</small></p>
-            <h6 className="card-title">{props.title.slice(0, 71)}</h6>
+            <h6 className="card-title"><a href={props.url} className="text-decoration-none text-dark">{props.title.slice(0, 71)}</a></h6>
+            <p className="text-capitalize"><small>{(props.author===null || props.author.indexOf("http") !==-1)? props.source.name : props.author.toLowerCase()} | {moment(props.publishedAt).format('MMM. DD')}</small></p>
+            <p className="card-text">{props.description.slice(0, 100)}...</p>
           </div>
-          <div className="card-link d-flex justify-content-end">
-            <p className="pr-3"><small>{moment(props.publishedAt).format('MMM. DD')}</small></p>
-          </div>
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">
+              <img src="https://img.icons8.com/ios/23/000000/like.png" />
+              <img className="pl-3" src="https://img.icons8.com/ios/23/000000/facebook.png" />
+              <img className="pl-3" src="https://img.icons8.com/ios/23/000000/twitter.png" />
+              <img className="pl-3" src="https://img.icons8.com/ios/23/000000/link.png" />
+            </li>
+          </ul>
         </div>
-        </a>
-      </div>
   )
 
   return(
@@ -60,7 +31,7 @@ function PostComponent(props) {
         Articles
       </h5>
 
-      <div className="row no-gutters Postbody-size">
+      <div className="row">
         {cardList}
       </div>
 
