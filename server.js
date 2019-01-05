@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 const newsapi = new NewsAPI(process.env.API_KEY);
 
 app.use(compression())
-// app.use(express.static(path.resolve(__dirname, 'client/build')));
+app.use(express.static(path.resolve(__dirname, 'client/build')));
 
 app.get('/w', function(req, res, err){
   request(`https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.IPGEO_KEY}`,function (error, response, body){
@@ -55,8 +55,8 @@ app.get('/ar/:key/:page/:from/:to/:sort', function(req, res){
 
 })
 
-// app.get('*', function (req, res) {
-//     res.sendFile(__dirname + '/client/build/index.html')
-// });
+app.get('*', function (req, res) {
+    res.sendFile(__dirname + '/client/build/index.html')
+});
 
 app.listen(port)
