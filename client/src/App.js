@@ -4,6 +4,8 @@ import LiveColumn from './Components/LiveSidebar/LiveColumn'
 import Menu from './Components/Menu/Menu'
 import Navbar from './Components/Navbar/Navbar'
 import Load from './Components/LoadComponent/Load'
+import Weather from './Components/Weather/Weather'
+
 import moment from 'moment'
 
 import './App.css';
@@ -12,50 +14,37 @@ class App extends Component {
   state = {
     articleResponse: [],
     liveColResponse: [],
-    livemenu: true,
+    weatherRequest: [],
+    livemenu: false,
     modalstatus: "modal off",
     pageNumber: 1,
     articleisLoading: true,
     liveisLoading: true,
     navSortBy: 'Sort by',
-    navPublishTime: 'Publish time',
-    childinputKeyword: '',
-    weatherInfo:[]
+    navPublishTime: 'Published',
+    childinputKeyword: ''
   }
 
 
   componentDidMount() {
-    this.liveColRequest()
-    this.articleRequest()
     this.weatherRequest()
-    if(window.innerWidth < 991){
-      this.setState({
-        livemenu:false
-      })
-    }
-    this.checkWidth = () => {
-       const match = window.matchMedia(`(max-width: 991.98px)`);
-       (match.matches) ? this.setState({livemenu: false}) : this.setState({livemenu: true})
-       return match.matches
-     }
-    window.addEventListener("resize", this.checkWidth);
+    // this.liveColRequest()
+    this.articleRequest()
+    // if(window.innerWidth < 991){
+    //   this.setState({
+    //     livemenu:false
+    //   })
+    // }
+    // this.checkWidth = () => {
+    //    const match = window.matchMedia(`(max-width: 991.98px)`);
+    //    (match.matches) ? this.setState({livemenu: false}) : this.setState({livemenu: true})
+    //    return match.matches
+    //  }
+    // window.addEventListener("resize", this.checkWidth);
    }
 
   componentWillUnmount() {
-     window.removeEventListener("resize", this.checkWidth);
-  }
-
-  async weatherRequest() {
-    try{
-    const response = await fetch('/w');
-    const res = await response.json();
-    await this.setState({
-        weatherInfo: res,
-    })
-
-    }catch (error) {
-    console.log('weatherRequest error is' + error );
-    }
+     // window.removeEventListener("resize", this.checkWidth);
   }
 
   async articleRequest() {
@@ -64,7 +53,7 @@ class App extends Component {
       const keyword = (s.childinputKeyword !== '')? s.childinputKeyword : 'Germany'
       const from = (s.navPublishTime==='7 days ago')?
       moment().subtract(7, 'days').format('YYYY-MM-DD') :(s.navPublishTime==='15 days ago')?
-      moment().subtract(16, 'days').format('YYYY-MM-DD') : (s.navPublishTime==='a month ago' || s.navPublishTime==='Publish time')?
+      moment().subtract(16, 'days').format('YYYY-MM-DD') : (s.navPublishTime==='a month ago' || s.navPublishTime==='Published')?
       moment().subtract(1, 'months').format('YYYY-MM-DD') : moment().format('YYYY-MM-DD')
       const to = moment().format('YYYY-MM-DD')
       const sort = (s.navSortBy !== 'Sort by')? s.navSortBy : 'relevancy'
@@ -79,7 +68,6 @@ class App extends Component {
     console.log('articleRequest error is' + error );
     }
   }
-
   async liveColRequest() {
     try{
       const response = await fetch('/lr');
@@ -90,6 +78,17 @@ class App extends Component {
       })
     } catch (error) {
     console.log('liveColRequest error is' + error );
+    }
+  }
+  async weatherRequest() {
+    try{
+      const response = await fetch('/w');
+      const res = await response.json();
+      await this.setState({
+          weatherRequest: res,
+      })
+    } catch (error) {
+    console.log('weatherRequest error is' + error );
     }
   }
 
@@ -116,12 +115,11 @@ class App extends Component {
     }, () => this.articleRequest())
   }
 
-  noResult = () => {
+  LoadingButtonIfnoResult = () => {
     if(this.state.articleResponse.length===0 && this.state.articleisLoading===false){
       return <h4 className="text-center my-5 py-5">Sorry, there is no results that matches your query :( </h4>
     }else{
-      return <button type="button" onClick={(e) => this.incPageNumber(e)} className="btn button-bg btn-lg btn-block">Load More</button>
-
+      return <button type="button" onClick={(e) => this.incPageNumber(e)} className="btn btn-outline-secondary btn-lg btn-block">Load More</button>
     }
   }
 
@@ -154,27 +152,27 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.pageLoading()}
+        {/*{this.pageLoading()}*/}
+        <Navbar
+            sortByStatus={this.state.navSortBy}
+            publishTimeStatus={this.state.navPublishTime}
+            sortSelection={this.childsortSelection}
+            publishSelection={this.childpublishSelection}
+            inputKeyword={this.childinputKeyword}
+            submitFilter={() => this.articleRequest()}
+        />
         <div className="container-fluid">
           <Menu
             toggleLiveMenu={this.childMenuClick}
           />
           <div className={this.state.modalstatus} />
           <div className="row">
-            <main className="col-12 col-md-12 col-lg-9 col-xl-9 no-margin">
-              <Navbar
-                sortByStatus={this.state.navSortBy}
-                publishTimeStatus={this.state.navPublishTime}
-                sortSelection={this.childsortSelection}
-                publishSelection={this.childpublishSelection}
-                inputKeyword={this.childinputKeyword}
-                weather={this.state.weatherInfo}
-                submitFilter={() => this.articleRequest()}
-              />
-            <PostComponent res={this.state.articleResponse} />
-              {this.noResult()}
+            <main className="col-12 col-xl-9 col-lg-8">
+              <PostComponent res={this.state.articleResponse} />
+              {this.LoadingButtonIfnoResult()}
             </main>
-            <aside className="col-12 col-lg-3 col-xl-3">
+            <aside className="col-3 col-xl-3 col-lg-4 d-none d-lg-block">
+              <Weather res={this.state.weatherRequest}/>
               <LiveColumn
                 response={this.state.liveColResponse}
                 menustate={this.state.livemenu} />
