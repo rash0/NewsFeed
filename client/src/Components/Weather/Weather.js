@@ -14,7 +14,7 @@ function Weather(props){
         <div className="card-title d-flex justify-content-between mb-3">
           <div>
             <h6 className="text-capitalize">{value.des}</h6>
-            <div className="d-flex"><h4>{value.tempNow}°C</h4>&nbsp;&nbsp;<p>{value.maxTemp}°C</p></div>
+            <div className="d-flex"><h4>{Math.floor(value.tempNow)}°C</h4>&nbsp;&nbsp;<p>{value.maxTemp}°C</p></div>
           </div>
           <img className="mt-4" src={value.logo} height="70" alt="w.ico"/>
         </div>
@@ -38,11 +38,11 @@ function Weather(props){
             <p>Clouds</p>
           </div>
           <div className="col">
-            <h6>{moment(value.sunrise).format('hh:mm')}</h6>
+            <h6>{moment.unix(value.sunrise).format('hh:mm')}</h6>
             <p>Sunrise</p>
           </div>
           <div className="col">
-            <h6>{moment(value.sunset).format('HH:mm')}</h6>
+            <h6>{moment.unix(value.sunset).format('HH:mm')}</h6>
             <p>Sunset</p>
           </div>
         </div>

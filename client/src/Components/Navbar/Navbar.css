@@ -1,9 +1,11 @@
 nav {
-  width: 90%;
+  border-bottom: 2px solid lightgrey;
+  box-shadow: -5px 6px 12px -8px rgba(0, 0, 0, 0.68);
 }
 
 #CollapseContent {
   border: 1px dashed black;
+  width: 86%;
 }
 
 nav button:hover {

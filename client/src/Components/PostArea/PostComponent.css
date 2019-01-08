@@ -1,18 +1,46 @@
-.card {
+/* Post Area */
+/* @media (min-width: 992px) {
+  .Postbody-size {
+    width: 96%;
+  }
+} */
+.Postcard {
+  /* height: 16rem;
+  border-radius: 6px;
+  position: relative;
+  position: relative;
+  overflow: hidden; */
+  height: 24rem;
   box-shadow: -2px 2px 18px -9px rgba(0, 0, 0, 0.68);
   transition: 500ms;
 }
 
-.card:hover, .card:active {
+.Postcard:hover, .Postcard:active {
   transform: scaleY(1.05) scaleX(1.05);
   box-shadow: 0 14px 98px rgba(0, 0, 0, 0.25), 0 0px 60px rgba(0, 0, 0, 0.22);
 }
 
-.card ul li img {
+.Postcard ul li img {
   opacity: 0.3;
 }
 
-.card ul li img:hover, .card ul li img:active {
+.Postcard ul li img:hover, .Postcard ul li img:active {
   opacity: 1;
   cursor: pointer;
 }
+
+/* .no-gutters.col,
+.no-gutters [class*="col-"] {
+  padding-right: 8px !important;
+  padding-left: 8px !important;
+}
+
+.no-margin {
+  margin-left: 0px !important;
+  margin-right: -10px !important;
+}
+
+.no-deco:hover {
+  color: inherit;
+  text-decoration: inherit;
+} */

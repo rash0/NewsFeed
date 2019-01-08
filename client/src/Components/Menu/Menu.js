@@ -3,7 +3,7 @@ import './Menu.css';
 
 function Menu(props) {
   return (
-    <div className="Menu d-block d-lg-none">
+    <div className="Menu">
       <div className="FABMenu">
         <input type="checkbox" onClick={props.toggleLiveMenu}/>
         <div className="hamburger">

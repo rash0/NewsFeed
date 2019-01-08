@@ -12,13 +12,25 @@ app.use(compression())
 app.use(express.static(path.resolve(__dirname, 'client/build')));
 
 app.get('/w', function(req, res, err){
-  request(`https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.IPGEO_KEY}`,function (error, response, body){
+  request(`https://api.ipgeolocation.io/ipgeo?apiKey=ed3c27d4ff904eadb8b9f6e0b6b5c6d1`,function (error, response, body){
     console.log('first request error:', error);
     var ip = JSON.parse(body)
     request(`https://api.openweathermap.org/data/2.5/weather?q=${ip.city},${ip.country_name}&APPID=${process.env.WETH_KEY}&units=metric`,function (error, response, body){
       console.log('Second request error:', error);
       var weather = JSON.parse(body)
-      res.send(JSON.stringify({minTemp: weather.main.temp_min, tempNow: weather.main.temp, maxTemp: weather.main.temp_max, logo: `http://openweathermap.org/img/w/${weather.weather[0].icon}.png`, country:ip.country_name, city: ip.city}))
+      res.send(JSON.stringify({
+      des: weather.weather[0].description,
+      tempNow: weather.main.temp,
+      pressure:weather.main.pressure,
+      humidity: weather.main.humidity,
+      wind: weather.wind.speed,
+      clouds: weather.clouds.all,
+      maxTemp: weather.main.temp_max,
+      sunrise: weather.sys.sunrise,
+      sunset: weather.sys.sunset,
+      logo: `http://openweathermap.org/img/w/${weather.weather[0].icon}.png`,
+      country:ip.country_name,
+      city: ip.city}))
     })
   })
 })
