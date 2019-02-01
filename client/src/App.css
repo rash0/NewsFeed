@@ -1,7 +1,7 @@
 /* Modal Overlay */
 .modal {
   display: block;
-  z-index: 1059;
+  z-index: 1;
   position: fixed;
   top: 0;
   left: 0;
@@ -13,4 +13,12 @@
 
 .modal.off {
   display: none;
+}
+
+.alert {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  opacity: 0.99
 }

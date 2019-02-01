@@ -17,57 +17,43 @@ class App extends Component {
     weatherRequest: [],
     livemenu: false,
     modalstatus: "modal off",
-    pageNumber: 1,
+    pageNumber: 2,
     articleisLoading: true,
     liveisLoading: true,
     navSortBy: 'Sort by',
     navPublishTime: 'Published',
-    childinputKeyword: ''
+    childinputKeyword: '',
+    alertStatus: false
   }
 
 
   componentDidMount() {
     this.weatherRequest()
-    // this.liveColRequest()
+    this.liveColRequest()
     this.articleRequest()
-    // if(window.innerWidth < 991){
-    //   this.setState({
-    //     livemenu:false
-    //   })
-    // }
-    // this.checkWidth = () => {
-    //    const match = window.matchMedia(`(max-width: 991.98px)`);
-    //    (match.matches) ? this.setState({livemenu: false}) : this.setState({livemenu: true})
-    //    return match.matches
-    //  }
-    // window.addEventListener("resize", this.checkWidth);
    }
 
-  componentWillUnmount() {
-     // window.removeEventListener("resize", this.checkWidth);
-  }
+   async articleRequest() {
+     try{
+       const s = this.state
+       const keyword = (s.childinputKeyword !== '')? s.childinputKeyword : 'Germany'
+       const from = (s.navPublishTime==='7 days ago')?
+       moment().subtract(7, 'days').format('YYYY-MM-DD') :(s.navPublishTime==='15 days ago')?
+       moment().subtract(16, 'days').format('YYYY-MM-DD') : (s.navPublishTime==='a month ago' || s.navPublishTime==='Published')?
+       moment().subtract(1, 'months').format('YYYY-MM-DD') : moment().format('YYYY-MM-DD')
+       const to = moment().format('YYYY-MM-DD')
+       const sort = (s.navSortBy !== 'Sort by')? s.navSortBy : 'relevancy'
 
-  async articleRequest() {
-    try{
-      const s = this.state
-      const keyword = (s.childinputKeyword !== '')? s.childinputKeyword : 'Germany'
-      const from = (s.navPublishTime==='7 days ago')?
-      moment().subtract(7, 'days').format('YYYY-MM-DD') :(s.navPublishTime==='15 days ago')?
-      moment().subtract(16, 'days').format('YYYY-MM-DD') : (s.navPublishTime==='a month ago' || s.navPublishTime==='Published')?
-      moment().subtract(1, 'months').format('YYYY-MM-DD') : moment().format('YYYY-MM-DD')
-      const to = moment().format('YYYY-MM-DD')
-      const sort = (s.navSortBy !== 'Sort by')? s.navSortBy : 'relevancy'
-
-      const response = await fetch(`/ar/${keyword}/${this.state.pageNumber}/${from}/${to}/${sort}`);
-      const res = await response.json();
-      await this.setState({
-          articleResponse: res.articles,
-          articleisLoading: false
-      })
-    } catch (error) {
-    console.log('articleRequest error is' + error );
-    }
-  }
+       const response = await fetch(`/ar/${keyword}/${this.state.pageNumber}/${from}/${to}/${sort}`);
+       const res = await response.json();
+       await this.setState(prevState => ({
+           articleResponse: (prevState.articleResponse.length===0)? res.articles : [...prevState.articleResponse, ...res.articles],
+           articleisLoading: false
+       }), () => console.log(this.state.articleResponse))
+     } catch (error) {
+     console.log('articleRequest error is' + error );
+     }
+   }
   async liveColRequest() {
     try{
       const response = await fetch('/lr');
@@ -93,20 +79,19 @@ class App extends Component {
   }
 
   childMenuClick = () => {
-    if(window.innerWidth < 991){
-      if(this.state.livemenu){
+    const { livemenu } = this.state
+      if(!livemenu){
         this.setState({
-          livemenu: false,
-          modalstatus: "modal off",
+          livemenu: true,
+          modalstatus: "modal",
         })
       }else{
         this.setState({
-          livemenu: true,
-          modalstatus: "modal"
+          livemenu: false,
+          modalstatus: "modal off"
         })
       }
     }
-  }
 
   incPageNumber = (e) => {
     e.preventDefault();
@@ -149,9 +134,29 @@ class App extends Component {
     })
   }
 
+  childshareButtonAlert = () => {
+    console.log('im herrre')
+    // this.setState({
+    //   alertStatus: true
+    // })
+  }
+
+  alertComponenet = () => {
+    const { alertStatus } = this.state
+    if(alertStatus){
+        return (
+          <div class="alert alert-danger" role="alert">
+              A simple danger alert—check it out!
+          </div>
+        )
+        // setTimeout(() => this.setState({alertStatus: false}), 3000);
+      }
+  }
+
   render() {
     return (
       <div className="App">
+        {this.alertComponenet()}
         {/*{this.pageLoading()}*/}
         <Navbar
             sortByStatus={this.state.navSortBy}
@@ -168,7 +173,9 @@ class App extends Component {
           <div className={this.state.modalstatus} />
           <div className="row">
             <main className="col-12 col-xl-9 col-lg-8">
-              <PostComponent res={this.state.articleResponse} />
+              <PostComponent
+                res={this.state.articleResponse}
+                shareButtonAlert={this.childshareButtonAlert} />
               {this.LoadingButtonIfnoResult()}
             </main>
             <aside className="col-3 col-xl-3 col-lg-4 d-none d-lg-block">
