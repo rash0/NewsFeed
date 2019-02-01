@@ -1,0 +1,1 @@
+- Close the PostComponent icons/button click endpoints.
