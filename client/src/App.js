@@ -17,7 +17,7 @@ class App extends Component {
     weatherRequest: [],
     livemenu: false,
     modalstatus: "modal off",
-    pageNumber: 2,
+    pageNumber: 1,
     articleisLoading: true,
     liveisLoading: true,
     navSortBy: 'Sort by',
@@ -33,23 +33,23 @@ class App extends Component {
     this.articleRequest()
    }
 
-   async articleRequest() {
+  async articleRequest() {
      try{
-       const s = this.state
-       const keyword = (s.childinputKeyword !== '')? s.childinputKeyword : 'Germany'
-       const from = (s.navPublishTime==='7 days ago')?
-       moment().subtract(7, 'days').format('YYYY-MM-DD') :(s.navPublishTime==='15 days ago')?
-       moment().subtract(16, 'days').format('YYYY-MM-DD') : (s.navPublishTime==='a month ago' || s.navPublishTime==='Published')?
+       const { childinputKeyword, navPublishTime, navSortBy, pageNumber } = this.state
+       const keyword = (childinputKeyword !== '')? childinputKeyword : 'Germany'
+       const from = (navPublishTime==='7 days ago')?
+       moment().subtract(7, 'days').format('YYYY-MM-DD') :(navPublishTime==='15 days ago')?
+       moment().subtract(16, 'days').format('YYYY-MM-DD') : (navPublishTime==='a month ago' || navPublishTime==='Published')?
        moment().subtract(1, 'months').format('YYYY-MM-DD') : moment().format('YYYY-MM-DD')
        const to = moment().format('YYYY-MM-DD')
-       const sort = (s.navSortBy !== 'Sort by')? s.navSortBy : 'relevancy'
+       const sort = (navSortBy !== 'Sort by')? navSortBy : 'relevancy'
 
-       const response = await fetch(`/ar/${keyword}/${this.state.pageNumber}/${from}/${to}/${sort}`);
+       const response = await fetch(`/ar/${keyword}/${pageNumber}/${from}/${to}/${sort}`);
        const res = await response.json();
        await this.setState(prevState => ({
            articleResponse: (prevState.articleResponse.length===0)? res.articles : [...prevState.articleResponse, ...res.articles],
            articleisLoading: false
-       }), () => console.log(this.state.articleResponse))
+       }))
      } catch (error) {
      console.log('articleRequest error is' + error );
      }
@@ -94,14 +94,17 @@ class App extends Component {
     }
 
   incPageNumber = (e) => {
+    const { pageNumber } = this.state
     e.preventDefault();
     this.setState({
-      pageNumber: this.state.pageNumber+1
+      pageNumber: pageNumber + 1
     }, () => this.articleRequest())
   }
 
   LoadingButtonIfnoResult = () => {
-    if(this.state.articleResponse.length===0 && this.state.articleisLoading===false){
+    const { articleisLoading, articleResponse } = this.state
+
+    if(articleResponse.length===0 && !articleisLoading){
       return <h4 className="text-center my-5 py-5">Sorry, there is no results that matches your query :( </h4>
     }else{
       return <button type="button" onClick={(e) => this.incPageNumber(e)} className="btn btn-outline-secondary btn-lg btn-block">Load More</button>
@@ -109,10 +112,9 @@ class App extends Component {
   }
 
   pageLoading = () => {
-    if(this.state.articleisLoading===true){
+    const { articleisLoading } = this.state
+    if(articleisLoading){
       return <Load />
-    }else{
-      return null
     }
   }
 
@@ -134,33 +136,14 @@ class App extends Component {
     })
   }
 
-  childshareButtonAlert = () => {
-    console.log('im herrre')
-    // this.setState({
-    //   alertStatus: true
-    // })
-  }
-
-  alertComponenet = () => {
-    const { alertStatus } = this.state
-    if(alertStatus){
-        return (
-          <div class="alert alert-danger" role="alert">
-              A simple danger alert—check it out!
-          </div>
-        )
-        // setTimeout(() => this.setState({alertStatus: false}), 3000);
-      }
-  }
-
   render() {
+    const { navSortBy, navPublishTime, articleResponse, weatherRequest, liveColResponse, livemenu } = this.state
     return (
       <div className="App">
-        {this.alertComponenet()}
-        {/*{this.pageLoading()}*/}
+        {this.pageLoading()}
         <Navbar
-            sortByStatus={this.state.navSortBy}
-            publishTimeStatus={this.state.navPublishTime}
+            sortByStatus={navSortBy}
+            publishTimeStatus={navPublishTime}
             sortSelection={this.childsortSelection}
             publishSelection={this.childpublishSelection}
             inputKeyword={this.childinputKeyword}
@@ -174,15 +157,14 @@ class App extends Component {
           <div className="row">
             <main className="col-12 col-xl-9 col-lg-8">
               <PostComponent
-                res={this.state.articleResponse}
-                shareButtonAlert={this.childshareButtonAlert} />
+                res={articleResponse}/>
               {this.LoadingButtonIfnoResult()}
             </main>
             <aside className="col-3 col-xl-3 col-lg-4 d-none d-lg-block">
-              <Weather res={this.state.weatherRequest}/>
+              <Weather res={weatherRequest}/>
               <LiveColumn
-                response={this.state.liveColResponse}
-                menustate={this.state.livemenu} />
+                response={liveColResponse}
+                menustate={livemenu} />
             </aside>
           </div>
         </div>

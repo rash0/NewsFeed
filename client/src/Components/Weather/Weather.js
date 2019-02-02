@@ -5,8 +5,8 @@ import moment from 'moment'
 function Weather(props){
   const value = props.res
   return(
-    <div>
-    <div className="card" style={{width: '18rem', borderRadius: '7px'}}>
+    <div style={{marginTop: '50px'}}>
+      <div className="card" style={{width: '18rem', borderRadius: '7px'}}>
       <div className="px-3 mt-3">
         <h5 className="font-weight-normal">{value.city}</h5>
         <hr className="mt-2"/>
@@ -25,7 +25,7 @@ function Weather(props){
             <p className="text-muted">Humidity</p>
           </div>
           <div className="col">
-            <h6>{value.pressure/10}</h6>
+            <h6>{value.pressure}</h6>
             <p className="text-muted">Pressure</p>
           </div>
           <div className="col">

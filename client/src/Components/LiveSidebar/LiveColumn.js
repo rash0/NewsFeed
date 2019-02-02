@@ -11,7 +11,7 @@ function LiveColumn(props) {
       title={res.title}
       author={res.author}
       url={res.url}
-      time={res.publishedAt} />
+      time={res.publishedAt}/>
 
   )
   return (
